@@ -2,3 +2,4 @@
 asap-aes/*
 *.tsv
 output_dir/*
+*.py.bak
