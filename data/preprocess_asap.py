@@ -18,20 +18,23 @@ def extract_based_on_ids(dataset, id_file):
 			try:
 				lines.append(dataset[id])
 			except:
-				print >> sys.stederr, 'ERROR: Invalid ID %s in %s' % (id, id_file)
+				print('ERROR: Invalid ID %s in %s' % (id, id_file), file=sys.stederr)
 	return lines
 
 def create_dataset(lines, output_fname):
 	f_write = open(output_fname, 'w')
-	f_write.write(dataset['header'])
+	# f_write.write(dataset['header'])
 	for line in lines:
 		f_write.write(line)
 
 def collect_dataset(input_file):
 	dataset = dict()
 	lcount = 0
-	with codecs.open(input_file, "r",encoding='utf-8', errors='ignore') as f:
+	# with open(input_file) as f:
+	with codecs.open(input_file, "r", encoding='utf-8', errors='ignore') as f:
+		print(f)
 		for line in f:
+			# print(line)
 			lcount += 1
 			if lcount == 1:
 				dataset['header'] = line
