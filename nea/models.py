@@ -5,10 +5,10 @@ logger = logging.getLogger(__name__)
 
 def create_model(args, initial_mean_value, overal_maxlen, vocab):
 	
-	import keras.backend as K
-	from keras.layers.embeddings import Embedding
-	from keras.models import Sequential, Model
-	from keras.layers.core import Dense, Dropout, Activation
+	import tensorflow.keras.backend as K
+	from tensorflow.keras.layers.embeddings import Embedding
+	from tensorflow.keras.models import Sequential, Model
+	from tensorflow.keras.layers.core import Dense, Dropout, Activation
 	from nea.my_layers import Attention, MeanOverTime, Conv1DWithMasking
 	
 	###############################################################################################################################
@@ -16,11 +16,11 @@ def create_model(args, initial_mean_value, overal_maxlen, vocab):
 	#
 
 	if args.recurrent_unit == 'lstm':
-		from keras.layers.recurrent import LSTM as RNN
+		from tensorflow.keras.layers.recurrent import LSTM as RNN
 	elif args.recurrent_unit == 'gru':
-		from keras.layers.recurrent import GRU as RNN
+		from tensorflow.keras.layers.recurrent import GRU as RNN
 	elif args.recurrent_unit == 'simple':
-		from keras.layers.recurrent import SimpleRNN as RNN
+		from tensorflow.keras.layers.recurrent import SimpleRNN as RNN
 
 	###############################################################################################################################
 	## Create Model
@@ -76,7 +76,7 @@ def create_model(args, initial_mean_value, overal_maxlen, vocab):
 	
 	elif args.model_type == 'breg':
 		logger.info('Building a BIDIRECTIONAL REGRESSION model')
-		from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge
+		from tensorflow.keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge
 		model = Sequential()
 		sequence = Input(shape=(overal_maxlen,), dtype='int32')
 		output = Embedding(args.vocab_size, args.emb_dim, mask_zero=True)(sequence)
@@ -98,7 +98,7 @@ def create_model(args, initial_mean_value, overal_maxlen, vocab):
 	
 	elif args.model_type == 'bregp':
 		logger.info('Building a BIDIRECTIONAL REGRESSION model with POOLING')
-		from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge
+		from tensorflow.keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge
 		model = Sequential()
 		sequence = Input(shape=(overal_maxlen,), dtype='int32')
 		output = Embedding(args.vocab_size, args.emb_dim, mask_zero=True)(sequence)
