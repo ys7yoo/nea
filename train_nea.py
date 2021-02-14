@@ -164,8 +164,8 @@ model.compile(loss=loss, optimizer=optimizer, metrics=[metric])
 ## Plotting model
 #
 
-from tensorflow.keras.utils.vis_utils import plot_model
-plot_model(model, to_file = out_dir + '/model.png')
+# from tensorflow.keras.utils.vis_utils import plot_model
+# plot_model(model, to_file = out_dir + '/model.png')
 
 # from tensorflow.keras.utils.visualize_util import plot
 # plot(model, to_file = out_dir + '/model.png')
@@ -199,7 +199,7 @@ total_eval_time = 0
 for ii in range(args.epochs):
 	# Training
 	t0 = time()
-	train_history = model.fit(train_x, train_y, batch_size=args.batch_size, epoch=1, verbose=0)
+	train_history = model.fit(train_x, train_y, batch_size=args.batch_size, epochs=1, verbose=0)
 	tr_time = time() - t0
 	total_train_time += tr_time
 	
