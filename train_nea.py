@@ -66,7 +66,7 @@ else:
 ## Prepare data
 #
 
-from keras.preprocessing import sequence
+from tensorflow.keras.preprocessing import sequence
 
 # data_x is a list of lists
 (train_x, train_y, train_pmt), (dev_x, dev_y, dev_pmt), (test_x, test_y, test_pmt), vocab, vocab_size, overal_maxlen, num_outputs = dataset.get_data(
@@ -92,7 +92,7 @@ else:
 ## Some statistics
 #
 
-import keras.backend as K
+import tensorflow.keras.backend as K
 
 train_y = np.array(train_y, dtype=K.floatx())
 dev_y = np.array(dev_y, dtype=K.floatx())
@@ -164,7 +164,7 @@ model.compile(loss=loss, optimizer=optimizer, metrics=[metric])
 ## Plotting model
 #
 
-from keras.utils.visualize_util import plot
+from tenorflow.keras.utils.visualize_util import plot
 
 plot(model, to_file = out_dir + '/model.png')
 
