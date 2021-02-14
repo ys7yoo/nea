@@ -8,6 +8,16 @@ An automatic essay scoring system based on convolutional and recurrent neural ne
 * Prepare data
 * Run train_nea.py
 
+### Packages ###
+* nltk
+```bash
+pip install ntlk
+```
+```python
+import nltk
+nltk.download('punkt')
+```
+
 ### Data ###
 
 We have used 5-fold cross validation on ASAP dataset to evaluate our system. This dataset (training_set_rel3.tsv) can be downloaded from [here](https://www.kaggle.com/c/asap-aes/data). After downloading the file, put it in the [data](https://github.com/nusnlp/nea/tree/master/data) directory and create training, development and test data using ```preprocess_asap.py``` script:
