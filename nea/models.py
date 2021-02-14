@@ -6,9 +6,9 @@ logger = logging.getLogger(__name__)
 def create_model(args, initial_mean_value, overal_maxlen, vocab):
 	
 	import tensorflow.keras.backend as K
-	from tensorflow.keras.layers.embeddings import Embedding
+	from tensorflow.keras.layers import Embedding
 	from tensorflow.keras.models import Sequential, Model
-	from tensorflow.keras.layers.core import Dense, Dropout, Activation
+	from tensorflow.keras.layers import Dense, Dropout, Activation
 	from nea.my_layers import Attention, MeanOverTime, Conv1DWithMasking
 	
 	###############################################################################################################################
@@ -16,11 +16,11 @@ def create_model(args, initial_mean_value, overal_maxlen, vocab):
 	#
 
 	if args.recurrent_unit == 'lstm':
-		from tensorflow.keras.layers.recurrent import LSTM as RNN
+		from tensorflow.keras.layers import LSTM as RNN
 	elif args.recurrent_unit == 'gru':
-		from tensorflow.keras.layers.recurrent import GRU as RNN
+		from tensorflow.keras.layers import GRU as RNN
 	elif args.recurrent_unit == 'simple':
-		from tensorflow.keras.layers.recurrent import SimpleRNN as RNN
+		from tensorflow.keras.layers import SimpleRNN as RNN
 
 	###############################################################################################################################
 	## Create Model

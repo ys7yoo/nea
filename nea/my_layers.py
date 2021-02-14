@@ -1,6 +1,9 @@
 import tensorflow.keras.backend as K
-from tensorflow.keras.engine.topology import Layer
-from tensorflow.keras.layers.convolutional import Convolution1D
+from tensorflow.keras.layers import Layer
+# from tensorflow.layers import Layer
+# from tensorflow.keras.engine.topology import Layer
+from tensorflow.keras.layers import Convolution1D
+# from tensorflow.keras.layers.convolutional import Convolution1D
 import numpy as np
 import sys
 
