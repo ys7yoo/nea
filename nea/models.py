@@ -30,7 +30,8 @@ def create_model(args, initial_mean_value, overal_maxlen, vocab):
 	dropout_U = 0.1		# default=0.1
 	cnn_border_mode='same'
 	if initial_mean_value.ndim == 0:
-		initial_mean_value = np.expand_dims(initial_mean_value, axis=1)
+		initial_mean_value = np.expand_dims(initial_mean_value, axis=0)
+		# initial_mean_value = np.expand_dims(initial_mean_value, axis=1)
 	num_outputs = len(initial_mean_value)
 	
 	if args.model_type == 'cls':
@@ -60,7 +61,7 @@ def create_model(args, initial_mean_value, overal_maxlen, vocab):
 		if args.cnn_dim > 0:
 			model.add(Conv1DWithMasking(nb_filter=args.cnn_dim, filter_length=args.cnn_window_size, border_mode=cnn_border_mode, subsample_length=1))
 		if args.rnn_dim > 0:
-			model.add(RNN(args.rnn_dim, return_sequences=True, dropout_W=dropout_W, dropout_U=dropout_U))
+			model.add(RNN(args.rnn_dim, return_sequences=True, dropout=dropout_W, recurrent_dropout=dropout_U))
 		if args.dropout_prob > 0:
 			model.add(Dropout(args.dropout_prob))
 		if args.aggregation == 'mot':

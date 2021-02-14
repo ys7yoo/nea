@@ -164,7 +164,7 @@ model.compile(loss=loss, optimizer=optimizer, metrics=[metric])
 ## Plotting model
 #
 
-from tenorflow.keras.utils.visualize_util import plot
+from tensorflow.keras.utils.visualize_util import plot
 
 plot(model, to_file = out_dir + '/model.png')
 
