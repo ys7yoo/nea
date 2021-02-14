@@ -49,6 +49,7 @@ class Attention(Layer):
 		base_config = super(Attention, self).get_config()
 		return dict(list(base_config.items()) + list(config.items()))
 
+
 class MeanOverTime(Layer):
 	def __init__(self, mask_zero=True, **kwargs):
 		self.mask_zero = mask_zero
@@ -57,7 +58,12 @@ class MeanOverTime(Layer):
 
 	def call(self, x, mask=None):
 		if self.mask_zero:
-			return K.cast(x.sum(axis=1) / mask.sum(axis=1, keepdims=True), K.floatx())
+			# code from https://github.com/keras-team/keras/issues/2728#issuecomment-409300724
+			mask = K.cast(mask, K.floatx())
+			mask_sum = K.sum(mask, axis=1, keepdims=True)
+			mask_sum = K.maximum(1.0, mask_sum)
+			return K.sum(x, axis=1, keepdims=False) / mask_sum
+			# return K.cast(x.sum(axis=1) / mask.sum(axis=1, keepdims=True), K.floatx())
 		else:
 			return K.mean(x, axis=1)
 
