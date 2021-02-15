@@ -59,7 +59,7 @@ def create_model(args, initial_mean_value, overal_maxlen, vocab):
 		model = Sequential()
 		model.add(Embedding(args.vocab_size, args.emb_dim, mask_zero=True))
 		if args.cnn_dim > 0:
-			model.add(Conv1DWithMasking(nb_filter=args.cnn_dim, filter_length=args.cnn_window_size, border_mode=cnn_border_mode, subsample_length=1))
+			model.add(Conv1DWithMasking(filters=args.cnn_dim, kernel_size=args.cnn_window_size, padding=cnn_border_mode)) # , subsample_length=1
 		if args.rnn_dim > 0:
 			model.add(RNN(args.rnn_dim, return_sequences=True, dropout=dropout_W, recurrent_dropout=dropout_U))
 		if args.dropout_prob > 0:
@@ -82,7 +82,7 @@ def create_model(args, initial_mean_value, overal_maxlen, vocab):
 		sequence = Input(shape=(overal_maxlen,), dtype='int32')
 		output = Embedding(args.vocab_size, args.emb_dim, mask_zero=True)(sequence)
 		if args.cnn_dim > 0:
-			output = Conv1DWithMasking(nb_filter=args.cnn_dim, filter_length=args.cnn_window_size, border_mode=cnn_border_mode, subsample_length=1)(output)
+			output = Conv1DWithMasking(filters=args.cnn_dim, kernel_size=args.cnn_window_size, padding=cnn_border_mode)(output)
 		if args.rnn_dim > 0:
 			forwards = RNN(args.rnn_dim, return_sequences=False, dropout_W=dropout_W, dropout_U=dropout_U)(output)
 			backwards = RNN(args.rnn_dim, return_sequences=False, dropout_W=dropout_W, dropout_U=dropout_U, go_backwards=True)(output)
