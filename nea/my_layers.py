@@ -58,18 +58,23 @@ class MeanOverTime(Layer):
 
 	def call(self, x, mask=None):
 		if self.mask_zero:
-			# code from https://github.com/keras-team/keras/issues/2728#issuecomment-409300724
+			# code from https://github.com/nusnlp/nea/blob/a6ffad8e1f266304b1da62ea7e2c618d25fde27d/nea/my_layers.py
 			mask = K.cast(mask, K.floatx())
-			mask_sum = K.sum(mask, axis=1, keepdims=True)
-			mask_sum = K.maximum(1.0, mask_sum)
-			return K.sum(x, axis=1, keepdims=False) / mask_sum
+			return K.cast(K.sum(x, axis=1) / K.sum(mask, axis=1, keepdims=True), K.floatx())
+			# # code from https://github.com/keras-team/keras/issues/2728#issuecomment-409300724
+			# mask = K.cast(mask, K.floatx())
+			# mask_sum = K.sum(mask, axis=1, keepdims=True)
+			# mask_sum = K.maximum(1.0, mask_sum)
+			# return K.sum(x, axis=1, keepdims=False) / mask_sum
+			# # original
 			# return K.cast(x.sum(axis=1) / mask.sum(axis=1, keepdims=True), K.floatx())
 		else:
 			return K.mean(x, axis=1)
 
-	def get_output_shape_for(self, input_shape):
+	def compute_output_shape(self, input_shape):
+	# def get_output_shape_for(self, input_shape):
 		return (input_shape[0], input_shape[2])
-	
+
 	def compute_mask(self, x, mask):
 		return None
 	

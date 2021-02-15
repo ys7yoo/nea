@@ -133,7 +133,7 @@ def create_model(args, initial_mean_value, overal_maxlen, vocab):
 		emb_reader = EmbReader(args.emb_path, emb_dim=args.emb_dim)
 		model.layers[model.emb_index].set_weights(
 			emb_reader.get_emb_matrix_given_vocab(vocab, model.layers[model.emb_index].get_weights()))
-		# model.layers[model.emb_index].W.set_value(emb_reader.get_emb_matrix_given_vocab(vocab, model.layers[model.emb_index].W.get_value()))
+		model.layers[model.emb_index].set_weights(emb_reader.get_emb_matrix_given_vocab(vocab, model.layers[model.emb_index].get_weights()))
 		logger.info('  Done')
 	
 	return model
